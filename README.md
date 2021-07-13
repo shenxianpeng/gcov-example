@@ -1,7 +1,5 @@
 # Use Gcov and LCOV to perform code coverage testing for C/C++ projects
 
-[中文 Readme](README-CN.md)
-
 ## Question
 
 How do you do when your C/C++ project does not have unit test code, and you want to do code coverage testing?
