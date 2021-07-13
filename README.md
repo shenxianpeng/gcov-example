@@ -23,7 +23,25 @@ The `coverage` branch saves all the files generated during the compilation proce
 
 ## Generate code coverage
 
-If you want to generate code coverage yourself, you only need to perform the following 3 steps:
+Step by step
+
+```bash
+# compile with -fprofile-arcs -ftest-coverage
+gcc -Wall -Werror -fPIC -fprofile-arcs -ftest-coverage  main.c foo.c -o main
+
+# run run executable
+./main
+
+# generate gcov files.
+gcov main.c foo.c
+
+# generate coverage.info file
+lcov --capture --directory . --output-file coverage.info
+
+# generate HTML report
+genhtml coverage.info --output-directory out
+```
+Or introduce it to the `makefile` and you can compile and generate reports in just 3 steps like the following, or even 1 step if you want.
 
 ```bash
 # step 1 compile
@@ -39,15 +57,15 @@ make report
 make clean
 ```
 
-The above commands are actually executed through `makefile` by putting some other commands together. For details, please refer to the steps below.
+Each step output please refer to below.
 
 ### 1. Compile
 
 ```bash
 $ make
 # this is the output after adding -fprofile-arcs -ftest-coverage compilation options
-gcc -fPIC -fprofile-arcs -ftest-coverage -c -Wall -Werror -fpic main.c
-gcc -fPIC -fprofile-arcs -ftest-coverage -c -Wall -Werror -fpic foo.c
+gcc -fPIC -fprofile-arcs -ftest-coverage -c -Wall -Werror main.c
+gcc -fPIC -fprofile-arcs -ftest-coverage -c -Wall -Werror foo.c
 gcc -fPIC -fprofile-arcs -ftest-coverage -o main main.o foo.o
 ```
 
@@ -55,7 +73,7 @@ Let's take a look at what files are generated in the current workspace.
 
 ```bash
 $ ls
-foo.c  foo.gcno  foo.h  foo.o  img  main.c  main.exe  main.gcno  main.o  makefile  README.md  README-CN.md
+foo.c  foo.gcno  foo.h  foo.o  img  main  main.c  main.gcno  main.o  makefile  README.md
 ```
 
 After compilation, in addition to generating `main` and `.o` files, there are also two `.gcno` files.
@@ -74,7 +92,7 @@ when num is equal to 2...
 
 # After main is executed, two .gcda files are generated
 $ ls
-foo.c  foo.gcda  foo.gcno  foo.h  foo.o  img  main.c  main.exe  main.gcda  main.gcno  main.o  makefile  README.md  README-CN.md
+foo.c  foo.gcda  foo.gcno  foo.h  foo.o  img  main  main.c  main.gcda  main.gcno  main.o  makefile  README.md
 ```
 
 > The `.gcda` count data file is generated when a program containing object files built with the GCC `-fprofile-arcs` option is executed. A separate `.gcda` file is created for each object file compiled with this option. It contains arc transition counts, value profile counts, and some summary information.
