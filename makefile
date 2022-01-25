@@ -2,15 +2,14 @@ CC	= gcc
 CFLAG = -fPIC -fprofile-arcs -ftest-coverage
 RM	= rm -rf
 
-
-main : main.o foo.o
-	$(CC) $(CFLAG) -o main main.o foo.o
-
 main.o : main.c
 	$(CC) $(CFLAG) -c -Wall -Werror main.c
 
 foo.o : foo.c
 	$(CC) $(CFLAG) -c -Wall -Werror foo.c
+
+build : main.o foo.o
+	$(CC) $(CFLAG) -o main main.o foo.o
 
 gcov: main.c foo.c
 	gcov main.c foo.c
