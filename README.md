@@ -12,9 +12,9 @@ Maybe for people who have contact with Java Junit and JaCoCo, they can't measure
 
 There are some tools on the market to measure code coverage for black-box tests, such as Squish Coco, Bullseye, etc. Their principle is to insert instrumentation during compilation, which is called stubbing in Chinese and is used to track and record results when running tests.
 
-I have a deeper understanding of [Squish Coco](https://shenxianpeng.github.io/2019/05/squishcoco/) and how to use it, but for large projects, the introduction of such tools are more or less necessary to solve the compilation problems. It was because of some unresolved compilation issues that I never purchased this expensive tool license.
+I have a deeper understanding of [Squish Coco](https://shenxianpeng.github.io/2019/05/squishcoco/) and how to use it, but for large projects, the introduction of such tools are more or less necessary to solve the compilation problems. It was because of some unresolved compilation issues that so I didn't purchase this expensive tool license.
 
-When I re-investigated code coverage again, I was ashamed to find that the GCC I was using had a built-in code coverage tool called [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html)
+When I re-investigated code coverage again, I found that GCC has a built-in code coverage tool called [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html)
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ lcov: LCOV version 1.14
 
 Gcov workflow diagram
 
-![flow](https://github.com/shenxianpeng/gcov-example/blob/master/img/gcov-flow.jpg)
+![flow](img/gcov-flow.jpg)
 
 There are three main steps:
 
@@ -178,19 +178,19 @@ rm -rf main *.o *.so *.gcno *.gcda *.gcov coverage.info out
 
 ## Code coverage report
 
-![index](https://github.com/shenxianpeng/gcov-example/blob/master/img/index.png)
+![index](img/index.png)
 
 The home page is displayed in a directory structure
 
-![example](https://github.com/shenxianpeng/gcov-example/blob/master/img/example.png)
+![example](img/example.png)
 
 After entering the directory, the source files in that directory are displayed
 
-![main.c](https://github.com/shenxianpeng/gcov-example/blob/master/img/main.c.png)
+![main.c](img/main.c.png)
 
 The blue color indicates that these statements are overwritten
 
-![foo.c](https://github.com/shenxianpeng/gcov-example/blob/master/img/foo.c.png)
+![foo.c](img/foo.c.png)
 
 Red indicates statements that are not overridden
 
