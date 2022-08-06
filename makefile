@@ -25,4 +25,4 @@ report: coverage.info ## Generate report
 	genhtml coverage.info --output-directory docs
 
 clean: ## Clean all generate files
-	$(RM) main *.o *.so *.gcno *.gcda *.gcov coverage.info out
+	$(RM) main *.o *.so *.gcno *.gcda *.gcov coverage.info docs
