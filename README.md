@@ -1,27 +1,29 @@
 # Code coverage testing of C/C++ projects using Gcov and LCOV
 
-This article shares how to use Gcov and LCOV to metrics code coverage for C/C++ projects. 
-If you want to know how Gcov works, or you need to metrics code coverage for C/C++ projects later, 
-I hope this article is useful to you.
+This article shares how to use Gcov and LCOV to measure code coverage for C/C++ projects.
 
-## Problems
+If you want to know how Gcov works, or you need to measure code coverage for C/C++ projects later, I hope this example is useful to you.
 
-The problem I'm having: A C/C++ project from decades ago has no unit tests, only regression tests, 
-but you want to know what code is tested by regression tests? Which code is untested? 
-What is the code coverage? Where do I need to improve automated test cases in the future?
+## Problem
+
+The problem I'm having: A C/C++ project from decades ago has no unit tests, only regression tests. But I want to know:
+
+* what code is tested by regression tests? 
+* Which code is untested?
+* What is the code coverage? 
+* Where do I need to improve automated test cases in the future?
 
 Can code coverage be measured without unit tests? Yes.
 
-## Code coverage tools for C/C++
+## C/C++ code coverage tool
 
-There are some tools on the market that can measure the code coverage of black-box testing, 
-such as Squish Coco, Bullseye, etc. Their principle is to insert instrumentation when build product.
+There are some tools on the market that can measure the code coverage of black-box testing, such as Squish Coco, Bullseye, etc. 
 
-I've done some research on [Squish Coco](https://shenxianpeng.github.io/2019/05/squishcoco/), 
-because of some unresolved compilation issues that I didn't buy a license for this expensive tool.
+Their principle is to insert instrumentation when build product.
 
-When I investigated code coverage again, I found out that GCC has a built-in code coverage tool called 
-[Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html).
+I've researched on [Squish Coco](https://shenxianpeng.github.io/2019/05/squishcoco/), but I didn't buy a license for this expensive tool due to some unresolved compilation issues.
+
+When I investigated code coverage again, I found out that GCC has a built-in code coverage tool called [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html).
 
 ## Prerequisites
 
@@ -31,7 +33,7 @@ requires GCC and LCOV to be installed before running the program.
 If you don't have an environment or don't want to install it, you can check out this example 
 [repository](https://github.com/shenxianpeng/gcov-example)
 
-Note: The source code is under the `master` branch master, and code coverage result html under branch `coverage`.
+Note: The source code is under the `master` branch, and code coverage report under branch `coverage`.
 
 ```bash
 # This is the version of GCC and lcov on my test environment.
@@ -53,7 +55,7 @@ Gcov workflow diagram
 
 There are three main steps:
 
-1. Adding special compilation options to the GCC compilation to generate the executable, and `*.gcno`.
+1. Adding special compile options to the GCC compilation to generate the executable, and `*.gcno`.
 2. Running (testing) the generated executable, which generates the `*.gcda` data file.
 3. With `*.gcno` and `*.gcda`, generate the `gcov` file from the source code, and finally generate the code coverage report.
 
@@ -194,19 +196,19 @@ rm -rf main *.o *.so *.gcno *.gcda *.gcov coverage.info out
 
 ![index](img/index.png)
 
-The home page is displayed in a directory structure
+The home page is displayed in a directory structure.
 
 ![example](img/example.png)
 
-After entering the directory, the source files in that directory are displayed
+After entering the directory, the source files in that directory are displayed.
 
 ![main.c](img/main.c.png)
 
-The blue color indicates that these statements are overwritten
+The blue color indicates that these statements are overwritten.
 
 ![foo.c](img/foo.c.png)
 
-Red indicates statements that are not overridden
+Red indicates statements that are not overridden.
 
 > LCOV supports statement, function, and branch coverage metrics.
 

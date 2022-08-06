@@ -22,7 +22,7 @@ coverage.info: gcov
 	lcov --capture --directory . --output-file coverage.info
 
 report: coverage.info ## Generate report
-	genhtml coverage.info --output-directory out
+	genhtml coverage.info --output-directory docs
 
 clean: ## Clean all generate files
 	$(RM) main *.o *.so *.gcno *.gcda *.gcov coverage.info out
