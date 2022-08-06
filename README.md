@@ -1,5 +1,7 @@
 # Code coverage testing of C/C++ projects using Gcov and LCOV
 
+[![pages-build-deployment](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment)[![Build](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
+
 This article shares how to use Gcov and LCOV to measure code coverage for C/C++ projects.
 
 If you want to know how Gcov works, or you need to measure code coverage for C/C++ projects later, I hope this example is useful to you.
@@ -30,8 +32,8 @@ When I investigated code coverage again, I found out that GCC has a built-in cod
 For those who want to use Gcov, to illustrate how it works, I have prepared a sample program that 
 requires GCC and LCOV to be installed before running the program.
 
-If you don't have an environment or don't want to install it, you can check out this example 
-[repository](https://github.com/shenxianpeng/gcov-example)
+If you don't have an environment or don't want to install it, you can check out this repository
+[gcov-example](https://github.com/shenxianpeng/gcov-example) and [code coverage report](https://shenxianpeng.github.io/gcov-example/).
 
 Note: The source code is under the `master` branch, and code coverage report under branch `coverage`.
 
