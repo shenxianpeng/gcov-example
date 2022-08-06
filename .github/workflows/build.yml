@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: apt-get install lcov
+    - name: Install dependency
+      run: sudo apt-get install lcov
     - name: build
       run: make build
     - name: run executable
