@@ -1,10 +1,12 @@
-# Code coverage testing of C/C++ projects using Gcov and LCOV
+# Gcov Example
+
+**Use [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) and [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) to mersure C/C++ projects code coverage**
 
 [![pages-build-deployment](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment)[![Build](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
 
-This article shares how to use Gcov and LCOV to measure code coverage for C/C++ projects.
+This repo shows how to use Gcov and LCOV to measure code coverage for C/C++ projects.
 
-If you want to know how Gcov works, or you need to measure code coverage for C/C++ projects later, I hope this example is useful to you.
+If you want to know how Gcov works, or you need to measure code coverage for C/C++ projects later, this will be help.
 
 ## Problem
 
