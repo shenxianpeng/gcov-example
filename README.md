@@ -2,22 +2,23 @@
 
 **Use [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) and [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) to mersure C/C++ projects code coverage**
 
-[![pages-build-deployment](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment)[![Build](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
+[![pages-build-deployment](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment) [![Build](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
 
-This repo shows how to use Gcov and LCOV to measure code coverage for C/C++ projects.
+This repo shows how Gcov works and how to use Gcov and LCOV to measure code coverage for C/C++ projects.
 
-If you want to know how Gcov works, or you need to measure code coverage for C/C++ projects later, this will be help.
+* 📄 [LCOV - code coverage report](https://shenxianpeng.github.io/gcov-example/)
+* 🏗️ [Build process](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
 
 ## Problem
 
-The problem I'm having: A C/C++ project from decades ago has no unit tests, only regression tests. But I want to know:
+The problem I encountered: A C/C++ project from decades ago has no unit tests, only regression tests. But I want to know:
 
 * what code is tested by regression tests? 
 * Which code is untested?
 * What is the code coverage? 
 * Where do I need to improve automated test cases in the future?
 
-Can code coverage be measured without unit tests? Yes.
+Can code coverage be measured without unit tests? The answer is Yes.
 
 ## C/C++ code coverage tool
 
@@ -31,11 +32,7 @@ When I investigated code coverage again, I found out that GCC has a built-in cod
 
 ## Prerequisites
 
-For those who want to use Gcov, to illustrate how it works, I have prepared a sample program that 
-requires GCC and LCOV to be installed before running the program.
-
-If you don't have an environment or don't want to install it, you can check out this repository
-[gcov-example](https://github.com/shenxianpeng/gcov-example) and [code coverage report](https://shenxianpeng.github.io/gcov-example/).
+Requires GCC and LCOV to be installed before running the program.
 
 Note: The source code is under the `master` branch, and code coverage report under branch `coverage`.
 
@@ -90,7 +87,7 @@ After successful compilation, not only the `main` and `.o` files are generated, 
 > The `.gcno` record file is generated after adding the GCC compile option `-ftest-coverage`, which contains information 
 for reconstructing the base block map and assigning source line numbers to blocks during the compilation process.
 
-### 2. Running the executable
+### 2. Run executable
 
 After compilation, the executable `main` is generated, which is run (tested) as follows
 
@@ -121,7 +118,7 @@ foo.c  foo.gcda  foo.gcno  foo.h  foo.o  img  main  main.c  main.gcda  main.gcno
 > `.gcda` record data files are generated because the program is compiled with the `-fprofile-arcs` option introduced. 
 It contains arc transition counts, value distribution counts, and some summary information.
 
-### 3. Generating reports
+### 3. Generate report
 
 ```bash
 make report

@@ -13,15 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: install dependency
+    - name: Install dependency
       run: sudo apt-get install lcov
-    - name: build
+    - name: 1. Compile
       run: make build
-    - name: run executable
+    - name: 2. Run executable
       run: ./main
-    - name: create report
+    - name: 3. Generate report
       run: make report
-    - name: update lcov report
+    - name: Update lcov report
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
