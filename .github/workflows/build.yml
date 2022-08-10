@@ -32,4 +32,3 @@ jobs:
         git add --all
         git commit -m "Update lcov report"
         git push -f
-  
