@@ -24,12 +24,12 @@ jobs:
       run: ./main
     - name: create report
       run: make report
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
-        publish_branch: coverage  # default: gh-pages
-
-
+    - name: Update LCOV report
+      run:
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git checkout coverage
+        git add --all
+        git commit -m "Update lcov report"
+        git push -f
   
