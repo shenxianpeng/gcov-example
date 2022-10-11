@@ -27,6 +27,7 @@ jobs:
     - name: 3. Generate report
       run: make report
     - name: Update lcov report
+      if: github.ref == 'refs/heads/master'
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
