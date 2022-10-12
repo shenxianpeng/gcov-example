@@ -17,7 +17,6 @@ jobs:
       with:
         style: 'Google'
         lines-changed-only: 'false'
-        tidy-checks: '-*'
 
     - name: Install dependency
       run: sudo apt-get install lcov
