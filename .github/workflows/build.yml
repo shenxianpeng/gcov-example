@@ -16,7 +16,7 @@ jobs:
     - uses: cpp-linter/cpp-linter-action@v2
       with:
         style: 'Google'
-        lines-changed-only: 'false'
+        files-changed-only: 'false'
 
     - name: Install dependency
       run: sudo apt-get install lcov
