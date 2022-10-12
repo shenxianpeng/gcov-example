@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install llvm-10
-      run: sudo apt-get install llvm-10
+      run: sudo apt-get install clang
     - uses: cpp-linter/cpp-linter-action@v2
       with:
         style: 'Google'
