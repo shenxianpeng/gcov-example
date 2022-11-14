@@ -218,3 +218,6 @@ Side notes:
 There is another tool for generating HTML reports called [gcovr](https://github.com/gcovr/gcovr), developed in Python, 
 whose reports are displayed slightly differently from LCOV. For example, LCOV displays it in a directory structure, 
 while gcovr displays it in a file path, which is always the same as the code structure, so I prefer to use the former.
+
+Read more:
+* https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/lcov
