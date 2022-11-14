@@ -220,4 +220,5 @@ whose reports are displayed slightly differently from LCOV. For example, LCOV di
 while gcovr displays it in a file path, which is always the same as the code structure, so I prefer to use the former.
 
 Read more:
+* https://www.kernel.org/doc/html/v4.15/dev-tools/gcov.html
 * https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/lcov
