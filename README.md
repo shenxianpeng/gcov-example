@@ -6,8 +6,8 @@
 
 This repo shows how Gcov works and use Gcov and lcov/gcovr to show code coverage result for C/C++ projects.
 
-* 📄 [LCOV - code coverage report](https://shenxianpeng.github.io/gcov-example/lcov/index.html)
-* 📄 [gcovr - code coverage report](https://shenxianpeng.github.io/gcov-example/gcovr/coverage.html)
+* 📄 [LCOV - code coverage report](https://shenxianpeng.github.io/gcov-example/lcov-report/index.html)
+* 📄 [gcovr - code coverage report](https://shenxianpeng.github.io/gcov-example/gcovr-report/coverage.html)
 * 🏗️ [Build process](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
 
 Note: The source code is under the `master` branch, and code coverage report under branch `coverage`.
@@ -206,6 +206,6 @@ rm -rf main *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
 
 ## Code coverage reports
 
-* Latest lcov online report: https://shenxianpeng.github.io/gcov-example/lcov/index.html
-* Latest gcovr online report: https://shenxianpeng.github.io/gcov-example/gcovr/coverage.html
+* Latest lcov online report: https://shenxianpeng.github.io/gcov-example/lcov-report/index.html
+* Latest gcovr online report: https://shenxianpeng.github.io/gcov-example/gcovr-report/coverage.html
 
