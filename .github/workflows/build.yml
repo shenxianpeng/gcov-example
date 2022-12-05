@@ -19,19 +19,24 @@ jobs:
         lines-changed-only: 'false'
 
     - name: Install dependency
-      run: sudo apt-get install lcov
+      run: make deps
+
     - name: 1. Compile
       run: make build
     - name: 2. Run executable
       run: ./main
-    - name: 3. Generate report
-      run: make report
-    - name: Update lcov report
+    - name: 3. Generate reports
+      run: |
+        make lcov-report
+        make gcovr-report
+
+    - name: Upload lcov and gcovr reports
       if: github.ref == 'refs/heads/master'
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
         git checkout -b coverage
         git add --all
-        git commit -m "Update lcov report"
+        git commit -m "Upload lcov and gcovr reports"
         git push -f origin coverage
+

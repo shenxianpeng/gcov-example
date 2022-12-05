@@ -1,52 +1,35 @@
 # Gcov Example
 
-**Use [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) and [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) to mersure C/C++ projects code coverage**
+**Use [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) + [LCOV](http://ltp.sourceforge.net/coverage/lcov.php) / [gcovr](https://github.com/gcovr/gcovr) to show C/C++ projects code coverage results.**
 
 [![pages-build-deployment](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/pages/pages-build-deployment) [![Build](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml/badge.svg)](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
 
-This repo shows how Gcov works and how to use Gcov and LCOV to measure code coverage for C/C++ projects.
+This repo shows how Gcov works and use Gcov and lcov/gcovr to show code coverage result for C/C++ projects.
 
-* 📄 [LCOV - code coverage report](https://shenxianpeng.github.io/gcov-example/)
+* 📄 [LCOV - code coverage report](https://shenxianpeng.github.io/gcov-example/lcov/index.html)
+* 📄 [gcovr - code coverage report](https://shenxianpeng.github.io/gcov-example/gcovr/coverage.html)
 * 🏗️ [Build process](https://github.com/shenxianpeng/gcov-example/actions/workflows/build.yml)
+
+Note: The source code is under the `master` branch, and code coverage report under branch `coverage`.
 
 ## Problem
 
 The problem I encountered: A C/C++ project from decades ago has no unit tests, only regression tests. But I want to know:
 
-* what code is tested by regression tests? 
+* What code is tested by regression tests? 
 * Which code is untested?
 * What is the code coverage? 
 * Where do I need to improve automated test cases in the future?
 
 Can code coverage be measured without unit tests? The answer is Yes.
 
-## C/C++ code coverage tool
+## C/C++ code coverage tools
 
-There are some tools on the market that can measure the code coverage of black-box testing, such as Squish Coco, Bullseye, etc. 
+There are some tools on the market that can measure the code coverage of black-box testing, such as Squish Coco, Bullseye, Gcov etc. 
 
-Their principle is to insert instrumentation when build product.
+Their principle is to insert instrumentation during build.
 
 I've researched on [Squish Coco](https://shenxianpeng.github.io/2019/05/squishcoco/), but I didn't buy a license for this expensive tool due to some unresolved compilation issues.
-
-When I investigated code coverage again, I found out that GCC has a built-in code coverage tool called [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html).
-
-## Prerequisites
-
-Requires GCC and LCOV to be installed before running the program.
-
-Note: The source code is under the `master` branch, and code coverage report under branch `coverage`.
-
-```bash
-# This is the version of GCC and lcov on my test environment.
-sh-4.2$ gcc --version
-gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-39)
-Copyright (C) 2015 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-sh-4.2$ lcov -v
-lcov: LCOV version 1.14
-```
 
 ## How Gcov works
 
@@ -71,7 +54,7 @@ make build
 ```
 
 <details>
-<summary>Click to see the output of the make command</summary>
+<summary>Click to see the output of make build</summary>
 
 ```bash
 sh-4.2$ make build
@@ -111,24 +94,26 @@ When `main` is run, the results are recorded in the `.gcda` data file, and if yo
 you can see that two `.gcda` files have been generated.
 
 ```bash
-$ ls
-foo.c  foo.gcda  foo.gcno  foo.h  foo.o  img  main  main.c  main.gcda  main.gcno  main.o  makefile  README.md
+$ ls *.gcda
+foo.gcda  main.gcda
 ```
 
 > `.gcda` record data files are generated because the program is compiled with the `-fprofile-arcs` option introduced. 
 It contains arc transition counts, value distribution counts, and some summary information.
 
-### 3. Generate report
+### 3. Generate reports
+
+You could generate lcov or gcovr reports.
 
 ```bash
-make report
+make lcov-report
 ```
 
 <details>
-<summary> Click to see the output of the generated report </summary>
+<summary> Click to see the output of make lcov-report </summary>
 
 ```bash
-sh-4.2$ make report
+$ make lcov-report
 gcov main.c foo.c
 File 'main.c'
 Lines executed:100.00% of 5
@@ -138,24 +123,24 @@ File 'foo.c'
 Lines executed:85.71% of 7
 Creating 'foo.c.gcov'
 
-Lines executed:91.67% of 12
-lcov --capture --directory . --output-file coverage.info
+mkdir lcov-report
+lcov --capture --directory . --output-file lcov-report/coverage.info
 Capturing coverage data from .
-Found gcov version: 4.8.5
+Found gcov version: 9.4.0
+Using intermediate gcov format
 Scanning . for .gcda files ...
 Found 2 data files in .
 Processing foo.gcda
-geninfo: WARNING: cannot find an entry for main.c.gcov in .gcno file, skipping file!
 Processing main.gcda
 Finished .info-file creation
-genhtml coverage.info --output-directory out
-Reading data file coverage.info
+genhtml lcov-report/coverage.info --output-directory lcov-report
+Reading data file lcov-report/coverage.info
 Found 2 entries.
-Found common filename prefix "/workspace/coco"
+Found common filename prefix "/home/ubuntu"
 Writing .css and .png files.
 Generating output.
-Processing file gcov-example/main.c
 Processing file gcov-example/foo.c
+Processing file gcov-example/main.c
 Writing directory view page.
 Overall coverage rate:
   lines......: 91.7% (11 of 12 lines)
@@ -163,22 +148,48 @@ Overall coverage rate:
 ```
 </details>
 
-Executing `make report` to generate an HTML report actually performs two main steps behind this command.
-
-1. With the `.gcno` and `.gcda` files generated at compile and run time, execute the command 
-`gcov main.c foo.c` to generate the `.gcov` code coverage file.
-
-2. With the code coverage `.gcov` file, generate a visual code coverage report via 
-[LCOV](http://ltp.sourceforge.net/coverage/lcov.php).
-
-The steps to generate the HTML result report are as follows.
 
 ```bash
-# 1. Generate the coverage.info data file
-lcov --capture --directory . --output-file coverage.info
-# 2. Generate a report from this data file
-genhtml coverage.info --output-directory out
+make lcov-report
 ```
+
+<details>
+<summary> Click to see the output of make lcov-report </summary>
+
+```bash
+$ make gcovr-report
+gcov main.c foo.c
+File 'main.c'
+Lines executed:100.00% of 5
+Creating 'main.c.gcov'
+
+File 'foo.c'
+Lines executed:85.71% of 7
+Creating 'foo.c.gcov'
+
+mkdir gcovr-report
+gcovr --root . --html --html-details --output gcovr-report/coverage.html
+```
+</details>
+
+Before making reports actually performs `make coverage` command.
+
+<details>
+<summary> Click to see the output of make coverage </summary>
+
+```bash
+$ make coverage
+gcov main.c foo.c
+File 'main.c'
+Lines executed:100.00% of 5
+Creating 'main.c.gcov'
+
+File 'foo.c'
+Lines executed:85.71% of 7
+Creating 'foo.c.gcov'
+```
+</details>
+
 
 ### Delete all generated files
 
@@ -188,37 +199,13 @@ All the generated files can be removed by executing `make clean` command.
 <summary> Click to see the output of the make clean command </summary>
 
 ```bash
-sh-4.2$ make clean
-rm -rf main *.o *.so *.gcno *.gcda *.gcov coverage.info out
+$ make clean
+rm -rf main *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
 ```
 </details>
 
-## Code coverage report
+## Code coverage reports
 
-![index](img/index.png)
+* Latest lcov online report: https://shenxianpeng.github.io/gcov-example/lcov/index.html
+* Latest gcovr online report: https://shenxianpeng.github.io/gcov-example/gcovr/coverage.html
 
-The home page is displayed in a directory structure.
-
-![example](img/example.png)
-
-After entering the directory, the source files in that directory are displayed.
-
-![main.c](img/main.c.png)
-
-The blue color indicates that these statements are overwritten.
-
-![foo.c](img/foo.c.png)
-
-Red indicates statements that are not overridden.
-
-> LCOV supports statement, function, and branch coverage metrics.
-
-Side notes:
-
-There is another tool for generating HTML reports called [gcovr](https://github.com/gcovr/gcovr), developed in Python, 
-whose reports are displayed slightly differently from LCOV. For example, LCOV displays it in a directory structure, 
-while gcovr displays it in a file path, which is always the same as the code structure, so I prefer to use the former.
-
-Read more:
-* https://www.kernel.org/doc/html/v4.15/dev-tools/gcov.html
-* https://chromium.googlesource.com/chromium/src/+/HEAD/third_party/lcov
