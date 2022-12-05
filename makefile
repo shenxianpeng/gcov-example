@@ -15,14 +15,21 @@ build: main.o foo.o ## Make build
 	$(CC) $(CFLAG) -c -Wall -Werror main.c
 	$(CC) $(CFLAG) -o main main.o foo.o
 
-gcov: ## Run code coverage
+coverage: ## Run code coverage
 	gcov main.c foo.c
 
-coverage.info: gcov
-	lcov --capture --directory . --output-file coverage.info
+lcov-report: coverage ## Generate lcov report
+	mkdir lcov-report
+	lcov --capture --directory . --output-file lcov-report/coverage.info
+	genhtml lcov-report/coverage.info --output-directory lcov-report
 
-report: coverage.info ## Generate report
-	genhtml coverage.info --output-directory docs
+gcovr-report: coverage ## Generate gcovr report
+	mkdir gcovr-report
+	gcovr --root . --html --html-details --output gcovr-report/coverage.html
+
+deps: ## Install dependences
+	sudo apt-get install lcov
+	pip install gcovr
 
 clean: ## Clean all generate files
-	$(RM) main *.o *.so *.gcno *.gcda *.gcov coverage.info docs
+	$(RM) main *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
