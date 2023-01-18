@@ -30,7 +30,7 @@ gcovr-report: coverage ## Generate gcovr report
 	mkdir gcovr-report
 	gcovr --root . --html --html-details --output gcovr-report/coverage.html
 
-deps: ## Install dependences
+deps: ## Install dependencies
 	sudo apt-get install lcov clang-format
 	pip install gcovr
 
