@@ -11,12 +11,15 @@ main.o: main.c
 foo.o: foo.c
 	$(CC) $(CFLAG) -c -Wall -Werror foo.c
 
-build: main.o foo.o ## Make build
+test.o: test.c
+	$(CC) $(CFLAG) -c -Wall -Werror test.c
+
+build: main.o foo.o test.o ## Make build
 	$(CC) $(CFLAG) -c -Wall -Werror main.c
-	$(CC) $(CFLAG) -o main main.o foo.o
+	$(CC) $(CFLAG) -o main main.o foo.o test.o
 
 coverage: ## Run code coverage
-	gcov main.c foo.c
+	gcov main.c foo.c test.c
 
 lcov-report: coverage ## Generate lcov report
 	mkdir lcov-report
@@ -28,8 +31,11 @@ gcovr-report: coverage ## Generate gcovr report
 	gcovr --root . --html --html-details --output gcovr-report/coverage.html
 
 deps: ## Install dependences
-	sudo apt-get install lcov
+	sudo apt-get install lcov clang-format
 	pip install gcovr
 
 clean: ## Clean all generate files
-	$(RM) main *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
+	$(RM) main *.out *.o *.so *.gcno *.gcda *.gcov lcov-report gcovr-report
+
+lint: ## Lint code with clang-format
+	clang-format -i --style=LLVM *.c *.h

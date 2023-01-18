@@ -3,4 +3,4 @@
 
 extern void foo(int);
 
-#endif  // foo_h__
+#endif // foo_h__
