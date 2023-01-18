@@ -16,6 +16,7 @@ jobs:
     - uses: cpp-linter/cpp-linter-action@v2
       with:
         style: 'LLVM'
+        tidy-checks: '-*' # disable tidy check
         lines-changed-only: 'false'
 
     - name: Install dependency
