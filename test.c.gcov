@@ -1,0 +1,11 @@
+        -:    0:Source:test.c
+        -:    1:#include <stdio.h>
+        -:    2:
+    #####:    3:void test_zero() { printf("test 0 \n"); }
+        -:    4:
+        -:    5:#if 0
+        -:    6:int test_skip() {
+        -:    7:  printf("this skip \n");
+        -:    8:  return 0;
+        -:    9:}
+        -:   10:#endif
