@@ -9,8 +9,8 @@ This repo shows how to use Gcov to create lcov/gcovr coverage reports for C/C++ 
 
 **Code coverage reports online**
 
-* 📄 [LCOV - code coverage report](https://shenxianpeng.github.io/gcov-example/lcov-report/index.html)
-* 📄 [gcovr - code coverage report](https://shenxianpeng.github.io/gcov-example/gcovr-report/coverage.html)
+* 📊 [LCOV - code coverage report](https://shenxianpeng.github.io/gcov-example/lcov-report/index.html)
+* 📊 [gcovr - code coverage report](https://shenxianpeng.github.io/gcov-example/gcovr-report/coverage.html)
 
 Note: The source code is under the `master` branch, and code coverage report under branch `coverage`.
 
