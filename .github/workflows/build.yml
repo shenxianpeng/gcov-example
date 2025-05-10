@@ -7,18 +7,11 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: cpp-linter/cpp-linter-action@v2
-      with:
-        style: 'LLVM'
-        tidy-checks: '-*' # disable tidy check
-        lines-changed-only: 'false'
-
     - name: Install dependency
       run: make deps
 
@@ -40,4 +33,3 @@ jobs:
         git add --all
         git commit -m "Upload lcov and gcovr reports"
         git push -f origin coverage
-

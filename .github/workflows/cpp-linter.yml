@@ -1,0 +1,19 @@
+name: Cpp Linter
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cpp-linter/cpp-linter-action@v2
+      with:
+        style: 'LLVM'
+        tidy-checks: '-*' # disable tidy check
+        lines-changed-only: 'false'
