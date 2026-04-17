@@ -83,3 +83,45 @@ make lcov-report
 # or
 make gcovr-report
 ```
+
+## Advanced: Merging coverage from multiple build configurations
+
+Real-world projects often compile the same source with different macros (feature flags, platform switches, etc.). You can combine the coverage from multiple configurations into a single report.
+
+`trigger.c` demonstrates this with `#ifdef TRIGGER_ON` / `#ifdef TRIGGER_OFF` conditional branches:
+
+```bash
+# Build and run both configurations, then merge into one report
+make coverage-merged
+# => merged-report/index.html
+```
+
+Under the hood, this uses `lcov --add-tracefile` to merge two separate `.info` files:
+
+```bash
+lcov -a config1.info -a config2.info -o merged.info
+genhtml merged.info --output-directory merged-report
+```
+
+## Advanced: File-specific coverage filtering
+
+To see coverage for a single file (e.g. `trigger.c`) rather than the whole project:
+
+```bash
+# First generate the full lcov report, then filter to trigger.c only
+make coverage-filter
+# => trigger-report/index.html
+```
+
+Using `lcov --extract` directly:
+
+```bash
+lcov --extract lcov-report/coverage.info "$(pwd)/trigger.c" -o trigger_only.info
+genhtml trigger_only.info --output-directory trigger-report
+```
+
+With gcovr, use `--filter`:
+
+```bash
+gcovr --filter trigger.c --html --html-details -o trigger-report/coverage.html
+```
