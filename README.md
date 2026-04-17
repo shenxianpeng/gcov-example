@@ -49,7 +49,7 @@ You can clone this repository and run `make help` to see how to use it.
 
 ```bash
 $ git clone https://github.com/shenxianpeng/gcov-example.git
-cd gcov-example
+$ cd gcov-example
 
 $ make help
 help                           Makefile help
