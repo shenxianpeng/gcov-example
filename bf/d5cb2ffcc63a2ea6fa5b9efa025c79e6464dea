@@ -1,0 +1,19 @@
+README.md
+  s_797e3933ee8a97::t_74dd1ff178c772 12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bfd5cb2ffcc63a2ea6fa5b9efa025c79e6464dea",
+  "prompts": {},
+  "sessions": {
+    "s_797e3933ee8a97": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2b4a1047-5655-4524-a769-e344963d8e3f",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Xianpeng Shen <xianpeng.shen@gmail.com>"
+    }
+  }
+}
