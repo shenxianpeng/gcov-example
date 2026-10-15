@@ -1,0 +1,13 @@
+        -:    0:Source:main.c
+        -:    1:#include <stdio.h>
+        -:    2:
+        -:    3:#include "foo.h"
+        -:    4:#include "test.h"
+        -:    5:
+        1:    6:int main(void) {
+        1:    7:  printf("Start calling foo() ...\n");
+        1:    8:  foo(1);
+        1:    9:  foo(2);
+        1:   10:  test_zero();
+        1:   11:  return 0;
+        -:   12:}

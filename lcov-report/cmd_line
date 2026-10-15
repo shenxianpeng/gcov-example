@@ -1,0 +1,1 @@
+genhtml lcov-report/coverage.info --output-directory lcov-report
