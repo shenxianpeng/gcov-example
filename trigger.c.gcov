@@ -1,0 +1,12 @@
+        -:    0:Source:trigger.c
+        -:    1:#include <stdio.h>
+        -:    2:
+        -:    3:#include "trigger.h"
+        -:    4:
+        1:    5:void trigger_action(void) {
+        -:    6:#ifdef TRIGGER_ON
+        -:    7:  printf("TRIGGER is ON: running extra logic...\n");
+        -:    8:#else
+        1:    9:  printf("TRIGGER is OFF: running default logic...\n");
+        -:   10:#endif
+        1:   11:}

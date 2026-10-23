@@ -1,0 +1,15 @@
+        -:    0:Source:main.c
+        -:    1:#include <stdio.h>
+        -:    2:
+        -:    3:#include "foo.h"
+        -:    4:#include "test.h"
+        -:    5:#include "trigger.h"
+        -:    6:
+        1:    7:int main(void) {
+        1:    8:  printf("Start calling foo() ...\n");
+        1:    9:  foo(1);
+        1:   10:  foo(2);
+        1:   11:  test_zero();
+        1:   12:  trigger_action();
+        1:   13:  return 0;
+        -:   14:}
