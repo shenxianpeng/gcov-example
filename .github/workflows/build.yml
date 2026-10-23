@@ -34,13 +34,18 @@ jobs:
       run: make coverage-merged
     - name: "6. Verify the merge sees both #ifdef branches of trigger.c"
       run: |
+        # Prints "<lines found> <lines hit>" for trigger.c by counting its DA: records.
+        # (LF:/LH: summary lines are not written by every lcov version.)
+        count() {
+          awk '/^SF:.*\/trigger\.c$/{f=1} f&&/^DA:/{n++; split($0,a,","); if (a[2]>0) h++} /^end_of_record/{f=0} END{print n+0, h+0}' "$1"
+        }
         for f in build/config1.info build/config2.info build/merged.info; do
-          lf=$(awk '/^SF:.*\/trigger\.c$/{f=1} f&&/^LF:/{sub("LF:",""); print} /^end_of_record/{f=0}' "$f")
-          lh=$(awk '/^SF:.*\/trigger\.c$/{f=1} f&&/^LH:/{sub("LH:",""); print} /^end_of_record/{f=0}' "$f")
-          echo "$f: trigger.c $lh of $lf lines hit"
+          echo "$f: trigger.c $(count "$f" | awk '{print $2 " of " $1}') lines hit"
         done
-        # A single configuration compiles only 3 lines of trigger.c; the merge must see all 4.
-        test "$lf" = 4 && test "$lh" = 4
+        # Each configuration compiles only 3 of the 4 lines of trigger.c; only the merge sees all 4.
+        test "$(count build/config1.info)" = "3 3"
+        test "$(count build/config2.info)" = "3 3"
+        test "$(count build/merged.info)" = "4 4"
 
     - name: Upload lcov and gcovr reports
       if: github.ref == 'refs/heads/master'
