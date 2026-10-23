@@ -7,6 +7,8 @@
 
 This repo shows how to use Gcov to create lcov/gcovr coverage reports for C/C++ projects.
 
+📝 Read the write-up: [English](https://shenxianpeng.dev/posts/2021/gcov-example/) · [中文](https://shenxianpeng.dev/zh-cn/posts/2021/gcov-example/)
+
 **Code coverage reports online**
 
 * 📊 [LCOV - code coverage report](https://shenxianpeng.dev/gcov-example/lcov-report/index.html)
@@ -27,9 +29,7 @@ The problem I encountered: A C/C++ project from decades ago has no unit tests, o
 
 Can code coverage be measured without unit tests? The answer is Yes.
 
-There are some tools on the market that can measure the code coverage of black-box testing, such as Squish Coco, Bullseye, etc but need to be charged. their principle is to insert instrumentation during build.
-
-I tried Squish Coco but I have some build issues are not resolved.
+Commercial tools such as Squish Coco and Bullseye can measure the coverage of black-box tests the same way: they instrument the code at build time. I tried Squish Coco first, ran into build issues I could not resolve, and then realised that GCC ships its own instrumentation: Gcov. See [Other C/C++ coverage tools](#other-cc-coverage-tools) for how they compare.
 
 ## How Gcov works
 
@@ -41,7 +41,7 @@ There are three main steps:
 
 1. Adding special compile options to the GCC compilation to generate the executable, and `*.gcno`.
 2. Running (testing) the generated executable, which generates the `*.gcda` data file.
-3. With `*.gcno` and `*.gcda`, generate the `gcov` file from the source code, and finally generate the code coverage report.
+3. With `*.gcno` and `*.gcda`, generate the report. lcov and gcovr run `gcov` internally and turn its output into HTML. Running `gcov` yourself only writes annotated `*.c.gcov` text files for reading in a terminal; lcov and gcovr do not read those files.
 
 Here's how each of these steps is done exactly.
 
@@ -77,12 +77,11 @@ make build
 # 2. run executable
 ./main
 
-# 3. run code coverage
+# 3. (optional) print a per-file summary and write annotated *.c.gcov text files
 make coverage
 
-# 4. generate report
-# support lcov and gcovr reports
-# to make report need to install dependencies first
+# 4. generate the HTML report (lcov and gcovr run gcov themselves)
+# install lcov and gcovr first
 make deps
 # then
 make lcov-report
@@ -143,3 +142,24 @@ With gcovr, use `--filter`:
 ```bash
 gcovr --filter trigger.c --html --html-details -o trigger-report/coverage.html
 ```
+
+## Other C/C++ coverage tools
+
+This repository stays focused on Gcov with LCOV and gcovr. For context, these are the other tools you will run into:
+
+| Tool | License | Compilers / platforms | Metrics | Notes |
+|------|---------|-----------------------|---------|-------|
+| [Gcov](https://gcc.gnu.org/onlinedocs/gcc/Gcov.html) + [LCOV](https://github.com/linux-test-project/lcov) / [gcovr](https://github.com/gcovr/gcovr) | free (GPL / BSD) | GCC; Clang through `llvm-cov gcov` | line, function, branch; condition (MC/DC) with GCC 14 `-fcondition-coverage` | what this repository shows |
+| [llvm-cov source-based coverage](https://clang.llvm.org/docs/SourceBasedCodeCoverage.html) | free (Apache 2.0) | Clang only | line, region, branch, MC/DC (`-fcoverage-mcdc`) | `-fprofile-instr-generate -fcoverage-mapping`; gcovr 8.4+ and LCOV's `llvm2lcov` can import its output |
+| [OpenCppCoverage](https://github.com/OpenCppCoverage/OpenCppCoverage) | free (GPL) | MSVC on Windows | line | works from PDB debug info, no instrumentation at build time; Cobertura XML and HTML output |
+| [Squish Coco](https://www.qt.io/product/quality-assurance/coco) | commercial | GCC, Clang, MSVC, many embedded toolchains | line, branch, condition, MC/DC, function | instruments at build time; aimed at safety-critical projects |
+| [Bullseye Coverage](https://www.bullseye.com/) | commercial | GCC, Clang, MSVC, embedded | function, condition/decision | instruments at build time; the oldest of the commercial tools |
+
+## Related projects
+
+Other tools I maintain for C/C++ CI:
+
+* [cpp-linter-action](https://github.com/cpp-linter/cpp-linter-action): clang-format and clang-tidy on every pull request, the other half of the CI in this repository.
+* [cpp-linter-hooks](https://github.com/cpp-linter/cpp-linter-hooks): the same checks as pre-commit hooks, before the code leaves your machine.
+* [clang-tools-pip](https://github.com/cpp-linter/clang-tools-pip): `pip install clang-tools` to get clang-format and clang-tidy on macOS and Windows, where `make deps` (apt-get) does not apply.
+* [commit-check-action](https://github.com/commit-check/commit-check-action): enforces conventional commit messages and branch names, like the `fix/` and `chore/` branches used here.
