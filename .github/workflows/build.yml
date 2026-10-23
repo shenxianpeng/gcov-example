@@ -28,6 +28,19 @@ jobs:
       run: |
         make lcov-report
         make gcovr-report
+    - name: 4. File-specific filtering (trigger.c only)
+      run: make coverage-filter
+    - name: 5. Multi-config merged coverage
+      run: make coverage-merged
+    - name: "6. Verify the merge sees both #ifdef branches of trigger.c"
+      run: |
+        for f in build/config1.info build/config2.info build/merged.info; do
+          lf=$(awk '/^SF:.*\/trigger\.c$/{f=1} f&&/^LF:/{sub("LF:",""); print} /^end_of_record/{f=0}' "$f")
+          lh=$(awk '/^SF:.*\/trigger\.c$/{f=1} f&&/^LH:/{sub("LH:",""); print} /^end_of_record/{f=0}' "$f")
+          echo "$f: trigger.c $lh of $lf lines hit"
+        done
+        # A single configuration compiles only 3 lines of trigger.c; the merge must see all 4.
+        test "$lf" = 4 && test "$lh" = 4
 
     - name: Upload lcov and gcovr reports
       if: github.ref == 'refs/heads/master'
