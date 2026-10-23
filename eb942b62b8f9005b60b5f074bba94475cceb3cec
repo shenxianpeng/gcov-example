@@ -1,0 +1,21 @@
+.github/workflows/build.yml
+  s_6535937731a8c8::t_8e0c46193001fa 10-12,16-17,19
+.github/workflows/cpp-linter.yml
+  s_6535937731a8c8::t_6f7b94ee836c94 10-12,17-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eb942b62b8f9005b60b5f074bba94475cceb3cec",
+  "prompts": {},
+  "sessions": {
+    "s_6535937731a8c8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7be933fd-3555-4179-bf89-3d88091b3193",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Xianpeng Shen <xianpeng.shen@gmail.com>"
+    }
+  }
+}
