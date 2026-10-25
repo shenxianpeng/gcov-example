@@ -29,7 +29,7 @@ The problem I encountered: A C/C++ project from decades ago has no unit tests, o
 
 Can code coverage be measured without unit tests? The answer is Yes.
 
-Commercial tools such as Squish Coco and Bullseye can measure the coverage of black-box tests the same way: they instrument the code at build time. I tried Squish Coco first, ran into build issues I could not resolve, and then realised that GCC ships its own instrumentation: Gcov. See [Other C/C++ coverage tools](#other-cc-coverage-tools) for how they compare.
+Commercial tools such as Squish Coco and Bullseye can measure the coverage of black-box tests the same way: they instrument the code at build time. See [Other C/C++ coverage tools](#other-cc-coverage-tools) for how they compare.
 
 ## How Gcov works
 
