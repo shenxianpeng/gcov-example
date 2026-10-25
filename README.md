@@ -80,7 +80,7 @@ make build
 # 3. run code coverage
 make coverage
 
-# 4. generate the HTML report (lcov and gcovr run gcov themselves)
+# 4. generate the HTML report
 # install lcov and gcovr first
 make deps
 # then
