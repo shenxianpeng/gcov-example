@@ -161,5 +161,3 @@ Other tools I maintain for C/C++ CI:
 
 * [cpp-linter-action](https://github.com/cpp-linter/cpp-linter-action): clang-format and clang-tidy on every pull request, the other half of the CI in this repository.
 * [cpp-linter-hooks](https://github.com/cpp-linter/cpp-linter-hooks): the same checks as pre-commit hooks, before the code leaves your machine.
-* [clang-tools-pip](https://github.com/cpp-linter/clang-tools-pip): `pip install clang-tools` to get clang-format and clang-tidy on macOS and Windows, where `make deps` (apt-get) does not apply.
-* [commit-check-action](https://github.com/commit-check/commit-check-action): enforces conventional commit messages and branch names, like the `fix/` and `chore/` branches used here.
