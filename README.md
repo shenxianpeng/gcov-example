@@ -77,7 +77,7 @@ make build
 # 2. run executable
 ./main
 
-# 3. (optional) print a per-file summary and write annotated *.c.gcov text files
+# 3. run code coverage
 make coverage
 
 # 4. generate the HTML report (lcov and gcovr run gcov themselves)
