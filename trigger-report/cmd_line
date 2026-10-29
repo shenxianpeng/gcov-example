@@ -1,0 +1,1 @@
+genhtml trigger-report/trigger_only.info --output-directory trigger-report

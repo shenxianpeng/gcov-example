@@ -1,0 +1,12 @@
+TN:
+SF:/home/runner/work/gcov-example/gcov-example/trigger.c
+FN:5,11,trigger_action
+FNDA:1,trigger_action
+FNF:1
+FNH:1
+DA:5,1
+DA:9,1
+DA:11,1
+LF:3
+LH:3
+end_of_record
