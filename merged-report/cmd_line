@@ -1,0 +1,1 @@
+genhtml build/merged.info --output-directory merged-report
